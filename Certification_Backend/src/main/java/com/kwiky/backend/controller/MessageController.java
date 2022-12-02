@@ -32,7 +32,7 @@ public class MessageController
 	}
 	
 	@GetMapping("messages/{id}")
-	public ResponseEntity<Message> getClient(@PathVariable("id")Long _id)
+	public ResponseEntity<Message> getMessage(@PathVariable("id")Long _id)
 	{		
 		Optional<Message> o = messageDirectory.getMessage(_id);
 		
@@ -43,14 +43,14 @@ public class MessageController
 	}
 	
 	@PostMapping("messages")
-	public Message postClient(@RequestBody Message message)
+	public Message postMessage(@RequestBody Message message)
 	{
 		messageDirectory.add(message);
 		return message;
 	}
 	
 	@DeleteMapping("messages/{id}")
-	public ResponseEntity<Message> Delete(@PathVariable("id")Long _id)
+	public ResponseEntity<Message> DeleteMessage(@PathVariable("id")Long _id)
 	{	
 		boolean success = messageDirectory.deleteMessage(_id);
 		
@@ -61,7 +61,7 @@ public class MessageController
 	}
 	
 	@PutMapping("messages/{id}")
-	public ResponseEntity<Message> updateClient(@RequestBody Message message, @PathVariable("id") Long id)
+	public ResponseEntity<Message> updateMessage(@RequestBody Message message, @PathVariable("id") Long id)
 	{	
 		if(message.getId().equals(id))
 		{
