@@ -21,7 +21,7 @@ public class CanalDirectory {
 	}
 
 	// Get All Canal
-	public List<Canal> getCanal() {
+	public List<Canal> getCanaux() {
 		return canalRepository.findAll();
 	}
 
