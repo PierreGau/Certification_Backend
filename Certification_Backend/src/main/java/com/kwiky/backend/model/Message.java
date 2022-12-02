@@ -39,4 +39,70 @@ public class Message
 	@ManyToOne(cascade = CascadeType.REMOVE)
 	@NotNull
 	private Canal canal;
+
+	public Message(@NotNull String content, @NotNull LocalDateTime postTime, LocalDateTime editTime, @NotNull User user,
+			@NotNull Canal canal) {
+		this.content = content;
+		this.postTime = postTime;
+		this.editTime = editTime;
+		this.user = user;
+		this.canal = canal;
+	}
+
+	public Message() {
+	}
+
+	@Override
+	public String toString() {
+		return String.format("Message [id=%s, content=%s, postTime=%s, editTime=%s, user=%s, canal=%s]", id, content,
+				postTime, editTime, user, canal);
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public LocalDateTime getPostTime() {
+		return postTime;
+	}
+
+	public void setPostTime(LocalDateTime postTime) {
+		this.postTime = postTime;
+	}
+
+	public LocalDateTime getEditTime() {
+		return editTime;
+	}
+
+	public void setEditTime(LocalDateTime editTime) {
+		this.editTime = editTime;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Canal getCanal() {
+		return canal;
+	}
+
+	public void setCanal(Canal canal) {
+		this.canal = canal;
+	}
 }
