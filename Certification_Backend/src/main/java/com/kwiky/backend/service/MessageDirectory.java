@@ -32,7 +32,7 @@ public class MessageDirectory
 		return mr.findAll();
 	}
 	
-	public Optional<Message> getMessasge(int _id)
+	public Optional<Message> getMessage(Long _id)
 	{
 		return mr.findById(Long.valueOf(_id));
 	}
