@@ -105,6 +105,4 @@ public class Message
 	public void setCanal(Canal canal) {
 		this.canal = canal;
 	}
-	
-	
 }
