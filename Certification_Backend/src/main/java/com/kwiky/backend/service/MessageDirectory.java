@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kwiky.backend.dao.MessageRepository;
+import com.kwiky.backend.model.Canal;
 import com.kwiky.backend.model.Message;
 
 
@@ -54,5 +55,9 @@ public class MessageDirectory
 			mr.save(message);
 		
 		return b;
+	}
+
+	public List<Canal> searchByContentContains(String partialContentSearch) {
+		return mr.findAllByContentContains(partialContentSearch);
 	}
 }
