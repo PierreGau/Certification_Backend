@@ -1,5 +1,6 @@
 package com.kwiky.backend.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -7,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kwiky.backend.dao.ServerRepository;
-import com.kwiky.backend.model.Message;
+import com.kwiky.backend.model.Canal;
 import com.kwiky.backend.model.Server;
 
 @Service
@@ -17,7 +18,16 @@ public class ServerDirectory {
 	
 		// post server
 		public Server addServer(Server newServer) {
+			 newServer.createGeneral();
 			return sr.save(newServer);
+		}
+		
+		public List<Server> addAll(List<Server> servers)
+		{
+			for(Server s : servers)
+				s.createGeneral();
+			
+			return sr.saveAll(servers);
 		}
 
 		// Get All Canal

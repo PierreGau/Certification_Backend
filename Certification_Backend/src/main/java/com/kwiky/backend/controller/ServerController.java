@@ -49,6 +49,13 @@ public class ServerController
 		return ResponseEntity.ok(sd.addServer(server));
 	}
 	
+	@PostMapping("servers/list")
+	public ResponseEntity<List<Server>> postServer(@RequestBody List<Server> servers)
+	{
+		return ResponseEntity.ok(sd.addAll(servers));
+	}
+	
+	
 	@DeleteMapping("servers/{id}")
 	public ResponseEntity<Server> DeleteServer(@PathVariable("id")Long _id)
 	{	

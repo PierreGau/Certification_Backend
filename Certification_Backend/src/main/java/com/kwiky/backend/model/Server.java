@@ -114,6 +114,15 @@ public class Server {
 		this.canaux = canaux;
 	}
 
+	
+	public void createGeneral()
+	{
+		ArrayList<Canal> l = new ArrayList<>();
+		Canal c = new Canal("General", this.getCreator());
+		c.setGeneral(true);
+		l.add(c);
+		this.setCanaux(l);
+	}
 
 
 	@Override

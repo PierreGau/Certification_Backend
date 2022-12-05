@@ -14,15 +14,15 @@ public class Canal {
 	@Column(name="id")
 	private Long id;
 	
-	@Column(name="name", unique=true)
+	@Column(name="name")
 	private String name;
 	
 	@ManyToOne
 	@NotNull
 	private User user;
 	
-	@Column(name="general")
-	private Boolean general;
+	@Column(name="general", columnDefinition="tinyint(1) default 1")
+	private Boolean general = false;
 	
 	// Constructeur par defaut
 	public Canal() {
