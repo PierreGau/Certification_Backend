@@ -39,4 +39,14 @@ public class CanalDirectory {
 	public void putCanal(Canal canalToUpdate, Long id) {
 		canalRepository.save(canalToUpdate);
 	}
+
+	public List<Canal> searchByName(String nameSearch) {
+		return canalRepository.findAllByName(nameSearch);
+	}
+	
+	public List<Canal> searchByNameContains(String partialNameSearch) {
+		return canalRepository.findAllByNameContains(partialNameSearch);
+	}
+	
+	
 }

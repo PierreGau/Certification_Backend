@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kwiky.backend.model.Canal;
@@ -64,5 +65,23 @@ public class CanalController {
 			return ResponseEntity.ok().build();
 
 		}
+	}
+	
+	
+	// Recherche de canal en utilisant son nom complet
+	// Récupère dans une liste tous les canaux ayant le nom indiqué en paramètre d'entrée
+	@GetMapping("searchbyname")
+	public List<Canal> searchByName(@RequestParam("name") String nameSearch){
+		System.out.println(nameSearch);
+		return canalDirectory.searchByName(nameSearch);
+	}
+	
+	// Recherche de canal en utilisant seulement une partie de son nom
+	// Par exemple, si on cherche les canaux contenant "M2i" dans leur nom, le résultat sera une liste 
+	// de canaux ayant dans leur nom "M2i"
+	@GetMapping("searchbynamecontains")
+	public List<Canal> searchByNameContains(@RequestParam("name") String partialNameSearch){
+		System.out.println(partialNameSearch);
+		return canalDirectory.searchByNameContains(partialNameSearch);
 	}
 }

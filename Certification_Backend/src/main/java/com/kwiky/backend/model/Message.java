@@ -13,6 +13,8 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Type;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 public class Message 
 {
@@ -26,9 +28,11 @@ public class Message
 	private String content;
 	
 	@NotNull
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@Column(name="postTime")
 	private LocalDateTime postTime;
 	
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@Column(name="editTime")
 	private LocalDateTime editTime;
 	
