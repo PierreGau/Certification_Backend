@@ -17,9 +17,9 @@ public class MessageDirectory
 	@Autowired
 	MessageRepository mr;
 	
-	public void add(Message message)
-	{
-		mr.save(message);
+	public Message add(Message message)
+	{		
+			return mr.save(message);		
 	}
 	
 	public void add(List<Message> messages)
@@ -50,7 +50,7 @@ public class MessageDirectory
 	public boolean updateMessage(Message message)
 	{
 		boolean b = mr.existsById(message.getId());
-		if(b)
+		if(b && message.getCanal() != null && message.getUser() != null)
 			mr.save(message);
 		
 		return b;
