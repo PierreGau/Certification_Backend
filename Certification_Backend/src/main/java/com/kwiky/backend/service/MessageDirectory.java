@@ -17,9 +17,9 @@ public class MessageDirectory
 	@Autowired
 	MessageRepository mr;
 	
-	public void add(Message message)
-	{
-		mr.save(message);
+	public Message add(Message message)
+	{		
+			return mr.save(message);		
 	}
 	
 	public void add(List<Message> messages)

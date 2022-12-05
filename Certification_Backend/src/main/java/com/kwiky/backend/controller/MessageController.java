@@ -43,10 +43,16 @@ public class MessageController
 	}
 	
 	@PostMapping("messages")
-	public Message postMessage(@RequestBody Message message)
+	public ResponseEntity<Message> postMessage(@RequestBody Message message)
 	{
-		messageDirectory.add(message);
-		return message;
+	
+		if(message.getUser()==null || message.getCanal()==null)
+			return ResponseEntity.badRequest().build();
+		else
+		{
+			return ResponseEntity.ok(messageDirectory.add(message));
+		}
+		
 	}
 	
 	@DeleteMapping("messages/{id}")
