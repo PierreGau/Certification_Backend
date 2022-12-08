@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.kwiky.backend.model.Canal;
 import com.kwiky.backend.model.Message;
 import com.kwiky.backend.model.User;
 import com.kwiky.backend.service.MessageDirectory;

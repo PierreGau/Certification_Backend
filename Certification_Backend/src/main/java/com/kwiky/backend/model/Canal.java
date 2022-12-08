@@ -13,13 +13,16 @@ public class Canal {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id")
 	private Long id;
-	@NotNull
-	@Column(name="name", unique=true)
+	
+	@Column(name="name")
 	private String name;
 	
 	@ManyToOne
 	@NotNull
 	private User user;
+	
+	@Column(name="general", columnDefinition="tinyint(1) default 1")
+	private Boolean general = false;
 	
 	// Constructeur par defaut
 	public Canal() {
@@ -27,10 +30,18 @@ public class Canal {
 	}
 
 	// constructeur avec tous les attributs
-	public Canal(Long id, String name, User user) {
-		this.id = id;
+	public Canal( String name, User user) {
 		this.name = name;
 		this.user = user;
+		this.general = false;
+	}
+
+	public Boolean getGeneral() {
+		return general;
+	}
+
+	public void setGeneral(Boolean general) {
+		this.general = general;
 	}
 
 	// Getters & Setters
