@@ -2,7 +2,6 @@ package com.kwiky.backend.model;
 
 import java.time.LocalDateTime;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.Type;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -38,10 +39,12 @@ public class Message
 	
 	@ManyToOne
 	@NotNull
+	@Cascade(CascadeType.DETACH)
 	private User user;
 	
-	@ManyToOne(cascade = CascadeType.REMOVE)
+	@ManyToOne
 	@NotNull
+	@Cascade(CascadeType.DETACH)
 	private Canal canal;
 
 	public Message(@NotNull String content, @NotNull LocalDateTime postTime, LocalDateTime editTime, @NotNull User user,

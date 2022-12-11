@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.kwiky.backend.model.Message;
+import com.kwiky.backend.model.Canal;
 import com.kwiky.backend.model.Server;
 import com.kwiky.backend.service.ServerDirectory;
 
@@ -53,6 +53,25 @@ public class ServerController
 	public ResponseEntity<List<Server>> postServer(@RequestBody List<Server> servers)
 	{
 		return ResponseEntity.ok(sd.addAll(servers));
+	}
+	
+	@DeleteMapping("servers/suprcanal/{id}")
+	public ResponseEntity<Server> postServer(@PathVariable("id")Long _id, @RequestBody Canal canal)
+	{	
+		if(canal.getId() == 0 || canal.getId() == null)
+		{
+			return ResponseEntity.notFound().build();
+		}
+		else if(canal.getGeneral())
+			return ResponseEntity.badRequest().build();
+		else
+		{
+			Server s = sd.addCanal(canal, _id);
+			if(s == null)
+				return ResponseEntity.notFound().build();
+			else
+				return ResponseEntity.ok(s);
+		}
 	}
 	
 	

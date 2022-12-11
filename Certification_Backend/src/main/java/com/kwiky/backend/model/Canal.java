@@ -6,7 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.validation.constraints.NotNull;
+
 @Entity
 public class Canal {
 	@Id
@@ -18,7 +18,6 @@ public class Canal {
 	private String name;
 	
 	@ManyToOne
-	@NotNull
 	private User user;
 	
 	@Column(name="general", columnDefinition="tinyint(1) default 1")

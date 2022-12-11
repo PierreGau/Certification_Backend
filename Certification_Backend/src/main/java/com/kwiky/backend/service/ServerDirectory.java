@@ -1,6 +1,5 @@
 package com.kwiky.backend.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,6 +27,17 @@ public class ServerDirectory {
 				s.createGeneral();
 			
 			return sr.saveAll(servers);
+		}
+		
+		public Server addCanal(Canal canal, Long serverID)
+		{		
+			Optional<Server> server = sr.findById(serverID);
+			if(server.isPresent())
+			{
+				server.get().addCanal(canal);			
+				return sr.save(server.get());
+			}
+			return null;
 		}
 
 		// Get All Canal

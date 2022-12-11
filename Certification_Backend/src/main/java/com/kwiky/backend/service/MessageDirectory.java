@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kwiky.backend.dao.MessageRepository;
-import com.kwiky.backend.model.Canal;
 import com.kwiky.backend.model.Message;
 import com.kwiky.backend.model.User;
 

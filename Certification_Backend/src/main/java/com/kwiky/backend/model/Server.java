@@ -28,11 +28,13 @@ public class Server {
 	@Column(name="name")
 	private String name;
 	
-	@ManyToMany
+	@ManyToMany(cascade = {javax.persistence.CascadeType.PERSIST, javax.persistence.CascadeType.REFRESH, javax.persistence.CascadeType.DETACH})
 	@Column(name="users")
+	@Cascade(CascadeType.DETACH)
 	private List<User> users;
 	
 	@ManyToOne
+	@Cascade(CascadeType.DETACH)
 	private User creator;
 	
 	@OneToMany
@@ -41,6 +43,7 @@ public class Server {
 
 	public Server() {
 		this.canaux = new ArrayList<>();
+		this.users = new ArrayList<>();
 		Canal general = new Canal("General", creator);
 		general.setGeneral(true);
 		this.canaux.add(general);
@@ -60,13 +63,9 @@ public class Server {
 		return id;
 	}
 
-
-
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-
 
 	public String getName() {
 		return name;
@@ -122,6 +121,59 @@ public class Server {
 		c.setGeneral(true);
 		l.add(c);
 		this.setCanaux(l);
+	}
+	
+	public Server addCanal(Canal canal)
+	{
+		boolean canAdd = false;
+		if (canal.getUser().getId() == creator.getId())
+			canAdd=true;
+		else
+		{
+			for(User u : users)
+			{
+				if(u.getId() == canal.getUser().getId())
+				{
+					canAdd = true;
+					break;
+				}
+			}
+		}
+		
+		if(canAdd)
+			canaux.add(canal);
+		
+		return this;
+	}
+	
+	public Server delCanal(Canal canal)
+	{
+		canaux.remove(canal);
+		return this;
+	}
+	
+	public Server addUser(User user)
+	{
+		boolean canAdd = true;
+		
+		for(User u : users)
+		{
+			if(u.getId() == user.getId() || user.getId() == creator.getId())
+			{
+				canAdd = false;
+				break;
+			}
+		}
+		if(canAdd)
+			users.add(user);
+		return this;
+	}
+	
+	public Server delUser(User user)
+	{
+		if(users.contains(user))
+			users.remove(user);
+		return this;
 	}
 
 
