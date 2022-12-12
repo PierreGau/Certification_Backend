@@ -9,8 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotNull;
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
 
 @Entity
 public class User {
@@ -21,7 +19,8 @@ public class User {
 	@NotNull
 	@Column(name="name", unique=true)
 	private String name;
-	
+
+
 	// Constructeur par defaut
 	public User() {
 		

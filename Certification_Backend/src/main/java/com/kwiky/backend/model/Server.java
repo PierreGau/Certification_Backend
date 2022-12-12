@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -28,9 +29,8 @@ public class Server {
 	@Column(name="name")
 	private String name;
 	
-	@ManyToMany(cascade = {javax.persistence.CascadeType.PERSIST, javax.persistence.CascadeType.REFRESH, javax.persistence.CascadeType.DETACH})
-	@Column(name="users")
-	@Cascade(CascadeType.DETACH)
+	@ManyToMany()
+	@JoinColumn(name="server_users", nullable = true,updatable = true)
 	private List<User> users;
 	
 	@ManyToOne

@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
@@ -17,7 +18,8 @@ public class Canal {
 	@Column(name="name")
 	private String name;
 	
-	@ManyToOne
+	@ManyToOne(optional = true)
+	@JoinColumn(name="canal_user",nullable = true,updatable = true)
 	private User user;
 	
 	@Column(name="general", columnDefinition="tinyint(1) default 1")
