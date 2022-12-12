@@ -13,8 +13,7 @@ import com.kwiky.backend.model.Canal;
 public class CanalDirectory {
 	@Autowired
 	private CanalRepository canalRepository;
-
-
+	
 	// post Canal
 	public void addCanal(Canal newCanal) {
 		canalRepository.save(newCanal);
@@ -32,11 +31,20 @@ public class CanalDirectory {
 
 	// delete Canal by id
 	public void deleteCanal(Long id) {
-		canalRepository.deleteById(id);
+		if(canalRepository.existsById(id))
+			canalRepository.deleteById(id);
 	}
 
 	// Put Canal by id
 	public void putCanal(Canal canalToUpdate, Long id) {
 		canalRepository.save(canalToUpdate);
+	}
+
+	public List<Canal> searchByName(String nameSearch) {
+		return canalRepository.findAllByName(nameSearch);
+	}
+	
+	public List<Canal> searchByNameContains(String partialNameSearch) {
+		return canalRepository.findAllByNameContains(partialNameSearch);
 	}
 }

@@ -12,9 +12,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.kwiky.backend.model.Canal;
 import com.kwiky.backend.model.Message;
+import com.kwiky.backend.model.User;
 import com.kwiky.backend.service.MessageDirectory;
 
 
@@ -43,10 +46,16 @@ public class MessageController
 	}
 	
 	@PostMapping("messages")
-	public Message postMessage(@RequestBody Message message)
+	public ResponseEntity<Message> postMessage(@RequestBody Message message)
 	{
-		messageDirectory.add(message);
-		return message;
+	
+		if(message.getUser()==null || message.getCanal()==null)
+			return ResponseEntity.badRequest().build();
+		else
+		{
+			return ResponseEntity.ok(messageDirectory.add(message));
+		}
+		
 	}
 	
 	@DeleteMapping("messages/{id}")
@@ -73,5 +82,22 @@ public class MessageController
 		}
 
 		return ResponseEntity.badRequest().build();
+	}
+	
+	
+	// Recherche de messages en utilisant seulement une partie de son contenu
+	// Par exemple, si on cherche les messages contenant "M2i" dans leur contenu, le résultat sera une liste 
+	// de messages ayant le mot "M2i" à l'interieur de leur contenu
+	@GetMapping("searchcontentbycontains")
+	public List<Message> searchContentByContains(@RequestParam("content") String partialContentSearch){
+		System.out.println(partialContentSearch);
+		return messageDirectory.searchByContentContains(partialContentSearch);
+	}
+	
+	// Recherche des messages écrits par un utilisaeur en particulier
+	@GetMapping("searchmessagebyuserid")
+	public List<Message> searchByMessageUserId(@RequestBody User userId){
+		System.out.println(userId);
+		return messageDirectory.searchMessageByUserId(userId);
 	}
 }
