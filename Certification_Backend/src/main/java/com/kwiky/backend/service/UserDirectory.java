@@ -18,6 +18,7 @@ public class UserDirectory {
 
 	// post User
 	public void addUser(User newUser) {
+		newUser.setActif(true);
 		userRepository.save(newUser);
 	}
 
@@ -33,8 +34,14 @@ public class UserDirectory {
 
 	// delete User by id
 	public void deleteUser(Long id) {
-		userRepository.deleteById(id);
-	}
+		Optional<User> user = userRepository.findById(id);
+		
+		if (!user.isPresent() || !user.get().isActif()) return  ;
+	
+	
+		user.get().setActif(false);
+	
+		userRepository.save(user.get());	}
 
 	// Put User by id
 	public void putUser(User userToUpdate, Long id) {

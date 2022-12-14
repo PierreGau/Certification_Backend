@@ -16,21 +16,24 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id")
 	private Long id;
+
 	@NotNull
 	@Column(name="name", unique=true)
 	private String name;
 
-
-	// Constructeur par defaut
+	@NotNull
+	@Column(name = "actif")
+	private boolean actif;
+	
+	// Constructeurs
 	public User() {
 		
 	}
 
-	// constructeur avec tous les attributs
 	public User(Long id, String name) {
-		super();
 		this.id = id;
 		this.name = name;
+		this.setActif(true);
 	}
 
 
@@ -49,6 +52,16 @@ public class User {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	
+
+	public boolean isActif() {
+		return actif;
+	}
+
+	public void setActif(boolean actif) {
+		this.actif = actif;
 	}
 
 	// ToString

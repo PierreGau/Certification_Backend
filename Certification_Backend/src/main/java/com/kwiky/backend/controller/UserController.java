@@ -1,5 +1,6 @@
 package com.kwiky.backend.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,7 +26,12 @@ public class UserController {
 
 	@GetMapping("users")
 	public List<User> getUsers() {
-		return userDirectory.getUsers();
+		List<User> users = userDirectory.getUsers();
+		List <User> actifs = new ArrayList<>(); 
+		for(User user:users) {
+			if (user.isActif()) actifs.add(user);
+		  }
+		return actifs ;
 	}
 
 	@GetMapping("users/{id}")
