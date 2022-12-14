@@ -21,9 +21,9 @@ public class ServerUserController {
 	ServerUserDirectory sud;//là ou il fais chaud
 	
 	@PostMapping("serversuser/adduser/{serverid}")
-	public ResponseEntity<Server> postUser(@PathVariable("serverid")Long _id, @RequestBody User user)
+	public ResponseEntity<Server> postUser(@PathVariable("serverid")Long id, @RequestBody User user)
 	{	
-		boolean b = sud.serverAddUser(_id, user);
+		boolean b = sud.serverAddUser(id, user);
 		if(!b)
 			return ResponseEntity.notFound().build();
 		else
@@ -31,9 +31,9 @@ public class ServerUserController {
 	}
 	
 	@DeleteMapping("serversuser/deluser/{serverid}")
-	public ResponseEntity<Server> delUser(@PathVariable("serverid")Long _id, @RequestBody User user)
+	public ResponseEntity<Server> delUser(@PathVariable("serverid")Long id, @RequestBody User user)
 	{	
-		boolean b = sud.serverDelUser(_id, user);
+		boolean b = sud.serverDelUser(id, user);
 		if(!b)
 			return ResponseEntity.notFound().build();
 		else

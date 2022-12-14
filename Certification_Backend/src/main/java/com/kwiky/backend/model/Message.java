@@ -17,35 +17,37 @@ import org.hibernate.annotations.Type;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
-public class Message 
-{
+public class Message {
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-	
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+
 	@NotNull
-	@Column(name="content",columnDefinition = "LONGTEXT")
+	@Column(name = "content", columnDefinition = "LONGTEXT")
 	@Type(type = "text")
 	private String content;
-	
+
 	@NotNull
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	@Column(name="postTime")
+	@Column(name = "postTime")
 	private LocalDateTime postTime;
-	
+
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	@Column(name="editTime")
+	@Column(name = "editTime")
 	private LocalDateTime editTime;
-	
+
 	@ManyToOne
 	@NotNull
 	@Cascade(CascadeType.DETACH)
 	private User user;
-	
+
 	@ManyToOne
 	@NotNull
 	@Cascade(CascadeType.DETACH)
 	private Canal canal;
+
+	public Message() {
+	}
 
 	public Message(@NotNull String content, @NotNull LocalDateTime postTime, LocalDateTime editTime, @NotNull User user,
 			@NotNull Canal canal) {
@@ -54,15 +56,6 @@ public class Message
 		this.editTime = editTime;
 		this.user = user;
 		this.canal = canal;
-	}
-
-	public Message() {
-	}
-
-	@Override
-	public String toString() {
-		return String.format("Message [id=%s, content=%s, postTime=%s, editTime=%s, user=%s, canal=%s]", id, content,
-				postTime, editTime, user, canal);
 	}
 
 	public Long getId() {
@@ -112,4 +105,11 @@ public class Message
 	public void setCanal(Canal canal) {
 		this.canal = canal;
 	}
+
+	@Override
+	public String toString() {
+		return String.format("Message [id=%s, content=%s, postTime=%s, editTime=%s, user=%s, canal=%s]", id, content,
+				postTime, editTime, user, canal);
+	}
+
 }

@@ -13,20 +13,20 @@ import com.kwiky.backend.model.User;
 @Service
 public class ServerUserDirectory {
 	@Autowired
-	ServerRepository sr;
+	ServerRepository serverRepository;
 	
 	@Autowired
-	UserRepository ur;
+	UserRepository userRepository;
 
 	public boolean serverAddUser(long _serverId, User user)
 	{
 		boolean b = false;
-		Optional<Server> s = sr.findById(_serverId);
+		Optional<Server> s = serverRepository.findById(_serverId);
 		if(s.isPresent())
 		{
 			Server server = s.get();
 			server.addUser(user);
-			sr.save(server);
+			serverRepository.save(server);
 			b=true;
 		}	
 		return b;
@@ -35,14 +35,14 @@ public class ServerUserDirectory {
 	public boolean serverDelUser(long _serverId, User user)
 	{
 		boolean b = false;
-		Optional<Server> s = sr.findById(_serverId);
-		Optional<User> u = ur.findById(user.getId());
+		Optional<Server> s = serverRepository.findById(_serverId);
+		Optional<User> u = userRepository.findById(user.getId());
 		if(s.isPresent() && u.isPresent())
 		{
 			User toDel = u.get();
 			Server server = s.get();
 			server.delUser(toDel);
-			sr.save(server);
+			serverRepository.save(server);
 			b=true;
 		}	
 		return b;

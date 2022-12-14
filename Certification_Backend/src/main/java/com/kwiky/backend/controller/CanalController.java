@@ -31,12 +31,12 @@ public class CanalController {
 	}
 	
 	@GetMapping("canaux/{id}")
-	public ResponseEntity<Canal> getCanal(@PathVariable("id")Long _id)
+	public ResponseEntity<Canal> getCanal(@PathVariable("id")Long id)
 	{		
-		Optional<Canal> o = canalDirectory.getCanal(_id);
+		Optional<Canal> canal = canalDirectory.getCanal(id);
 		
-		if(o.isPresent())		
-			return ResponseEntity.ok(o.get());			
+		if(canal.isPresent())		
+			return ResponseEntity.ok(canal.get());			
 		else
 			return ResponseEntity.notFound().build();
 	}
@@ -49,9 +49,9 @@ public class CanalController {
 	}
 	
 	@DeleteMapping("canaux/{id}")
-	public void deleteCanal(@PathVariable("id")Long _id)
+	public void deleteCanal(@PathVariable("id")Long id)
 	{	
-		canalDirectory.deleteCanal(_id);
+		canalDirectory.deleteCanal(id);
 	}
 	
 	@PutMapping("canaux/{id}")

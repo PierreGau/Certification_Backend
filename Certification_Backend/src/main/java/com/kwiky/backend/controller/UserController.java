@@ -35,11 +35,11 @@ public class UserController {
 	}
 
 	@GetMapping("users/{id}")
-	public ResponseEntity<User> getUser(@PathVariable("id") Long _id) {
-		Optional<User> o = userDirectory.getUser(_id);
+	public ResponseEntity<User> getUser(@PathVariable("id") Long id) {
+		Optional<User> user = userDirectory.getUser(id);
 
-		if (o.isPresent())
-			return ResponseEntity.ok(o.get());
+		if (user.isPresent())
+			return ResponseEntity.ok(user.get());
 		else
 			return ResponseEntity.notFound().build();
 	}
@@ -51,8 +51,8 @@ public class UserController {
 	}
 
 	@DeleteMapping("users/{id}")
-	public void deleteUser(@PathVariable("id") Long _id) {
-		userDirectory.deleteUser(_id);
+	public void deleteUser(@PathVariable("id") Long id) {
+		userDirectory.deleteUser(id);
 	}
 
 	@PutMapping("users/{id}")

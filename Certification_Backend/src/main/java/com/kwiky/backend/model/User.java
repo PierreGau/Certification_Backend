@@ -14,20 +14,20 @@ import javax.validation.constraints.NotNull;
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="id")
+	@Column(name = "id")
 	private Long id;
 
 	@NotNull
-	@Column(name="name", unique=true)
+	@Column(name = "name", unique = true)
 	private String name;
 
 	@NotNull
 	@Column(name = "actif")
 	private boolean actif;
-	
+
 	// Constructeurs
 	public User() {
-		
+
 	}
 
 	public User(Long id, String name) {
@@ -35,7 +35,6 @@ public class User {
 		this.name = name;
 		this.setActif(true);
 	}
-
 
 	// Getters & Setters
 	public Long getId() {
@@ -53,8 +52,6 @@ public class User {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	
 
 	public boolean isActif() {
 		return actif;

@@ -15,7 +15,6 @@ public class UserDirectory {
 	@Autowired
 	private UserRepository userRepository;
 
-
 	// post User
 	public void addUser(User newUser) {
 		newUser.setActif(true);
@@ -34,17 +33,24 @@ public class UserDirectory {
 
 	// delete User by id
 	public void deleteUser(Long id) {
+	
 		Optional<User> user = userRepository.findById(id);
 		
-		if (!user.isPresent() || !user.get().isActif()) return  ;
-	
-	
+		// Si le user n'existe pas ou n'est pas actif
+		if (!user.isPresent() || !user.get().isActif()) {
+			// on sort du if
+			return;
+		}
+		
+		// le user devient inactif (il est toujours présent dans la BDD
 		user.get().setActif(false);
-	
-		userRepository.save(user.get());	}
+
+		// Sauvegarde de l'objet user en tant que user inactif
+		userRepository.save(user.get());
+	}
 
 	// Put User by id
-	public void putUser(User userToUpdate, Long id) {
-		userRepository.save(userToUpdate);
+	public void putUser(User newUser, Long id) {
+		userRepository.save(newUser);
 	}
 }

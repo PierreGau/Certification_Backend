@@ -20,82 +20,69 @@ import com.kwiky.backend.service.ServerDirectory;
 
 @Controller
 @RequestMapping("api")
-public class ServerController 
-{
+public class ServerController {
+	
 	@Autowired
-	private ServerDirectory sd;
-	
+	private ServerDirectory serverDirectory;
+
 	@GetMapping("servers")
-	public List<Server> getAllServers()
-	{
-		return sd.getServers();
+	public List<Server> getAllServers() {
+		return serverDirectory.getServers();
 	}
-	
+
 	@GetMapping("servers/{id}")
-	public ResponseEntity<Server> getServer(@PathVariable("id") Long id)
-	{
-		Optional<Server> o = sd.getServer(id);
-		
-		if(o.isPresent())
-			return ResponseEntity.ok(o.get());
+	public ResponseEntity<Server> getServer(@PathVariable("id") Long id) {
+		Optional<Server> server = serverDirectory.getServer(id);
+
+		if (server.isPresent())
+			return ResponseEntity.ok(server.get());
 		else
 			return ResponseEntity.notFound().build();
 	}
 
-	
 	@PostMapping("servers")
-	public ResponseEntity<Server> postServer(@RequestBody Server server)
-	{
-		return ResponseEntity.ok(sd.addServer(server));
+	public ResponseEntity<Server> postServer(@RequestBody Server server) {
+		return ResponseEntity.ok(serverDirectory.addServer(server));
 	}
-	
+
 	@PostMapping("servers/list")
-	public ResponseEntity<List<Server>> postServer(@RequestBody List<Server> servers)
-	{
-		return ResponseEntity.ok(sd.addAll(servers));
+	public ResponseEntity<List<Server>> postServer(@RequestBody List<Server> servers) {
+		return ResponseEntity.ok(serverDirectory.addAll(servers));
 	}
-	
+
 	@DeleteMapping("servers/suprcanal/{id}")
-	public ResponseEntity<Server> postServer(@PathVariable("id")Long _id, @RequestBody Canal canal)
-	{	
-		if(canal.getId() == 0 || canal.getId() == null)
-		{
+	public ResponseEntity<Server> postServer(@PathVariable("id") Long id, @RequestBody Canal canal) {
+		if (canal.getId() == 0 || canal.getId() == null) {
 			return ResponseEntity.notFound().build();
-		}
-		else if(canal.getGeneral())
+		} else if (canal.getGeneral())
 			return ResponseEntity.badRequest().build();
-		else
-		{
-			Server s = sd.addCanal(canal, _id);
-			if(s == null)
+		else {
+			Server server = serverDirectory.addCanal(canal, id);
+			if (server == null)
 				return ResponseEntity.notFound().build();
 			else
-				return ResponseEntity.ok(s);
+				return ResponseEntity.ok(server);
 		}
 	}
-	
-	
+
 	@DeleteMapping("servers/{id}")
-	public ResponseEntity<Server> DeleteServer(@PathVariable("id")Long _id)
-	{	
-		boolean success = sd.deleteServer(_id);
-		
-		if(success)
+	public ResponseEntity<Server> DeleteServer(@PathVariable("id") Long id) {
+		boolean success = serverDirectory.deleteServer(id);
+
+		if (success)
 			return ResponseEntity.ok().build();
 		else
 			return ResponseEntity.notFound().build();
 	}
-	
+
 	@PutMapping("servers/{id}")
-	public ResponseEntity<Server> updateServer(@RequestBody Server server, @PathVariable("id") Long id)
-	{	
-		if(server.getId().equals(id))
-		{
-			boolean success = sd.updateServer(server);
-			if(success)
+	public ResponseEntity<Server> updateServer(@RequestBody Server server, @PathVariable("id") Long id) {
+		if (server.getId().equals(id)) {
+			boolean success = serverDirectory.updateServer(server);
+			if (success)
 				return ResponseEntity.ok().build();
 			else
-				return ResponseEntity.notFound().build();				
+				return ResponseEntity.notFound().build();
 		}
 
 		return ResponseEntity.badRequest().build();

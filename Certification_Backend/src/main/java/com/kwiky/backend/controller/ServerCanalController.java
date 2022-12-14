@@ -18,12 +18,12 @@ import com.kwiky.backend.service.ServerCanalDirectory;
 public class ServerCanalController 
 {
 	@Autowired
-	private ServerCanalDirectory scd;
+	private ServerCanalDirectory serverCanalDirectory;
 	
 	@PostMapping("serverscanal/addcanal/{serverid}")
-	public ResponseEntity<Server> postCanal(@PathVariable("serverid")Long _id, @RequestBody Canal canal)
+	public ResponseEntity<Server> postCanal(@PathVariable("serverid")Long id, @RequestBody Canal canal)
 	{	
-		boolean b = scd.serverAddCanal(_id, canal);
+		boolean b = serverCanalDirectory.serverAddCanal(id, canal);
 		if(!b)
 			return ResponseEntity.notFound().build();
 		else
@@ -32,9 +32,9 @@ public class ServerCanalController
 	
 
 	@DeleteMapping("serverscanal/delcanal/{serverid}")
-	public ResponseEntity<Server> delCanal(@PathVariable("serverid")Long _id, @RequestBody Canal canal)
+	public ResponseEntity<Server> delCanal(@PathVariable("serverid")Long id, @RequestBody Canal canal)
 	{	
-		boolean b = scd.serverDelCanal(_id, canal);
+		boolean b = serverCanalDirectory.serverDelCanal(id, canal);
 		if(!b)
 			return ResponseEntity.notFound().build();
 		else
