@@ -1,8 +1,6 @@
 package com.kwiky.backend.model;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -30,12 +28,12 @@ public class Server {
 	@Column(name="name")
 	private String name;
 		
-	@ManyToMany(mappedBy = "servers")
+	@ManyToMany
 	private Set<User> users;
 	
 	@ManyToOne
 	private User creator;
-	
+
 	@OneToMany
 	@Cascade(CascadeType.ALL)
 	private Set<Canal> canaux;

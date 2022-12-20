@@ -26,9 +26,8 @@ public class ServerUserDirectory {
 		Optional<User> userToAdd = ur.findById(user.getId());
 		if(s.isPresent() && userToAdd.isPresent())
 		{
-			User u = userToAdd.get();
-			u.addServer(s.get());
-			ur.save(u);
+			s.get().addUser(userToAdd.get());
+			sr.save(s.get());
 			b=true;
 		}	
 		return b;
@@ -43,22 +42,10 @@ public class ServerUserDirectory {
 		{
 			User toDel = u.get();
 			Server server = s.get();
-			toDel.delServer(server);
-			ur.save(toDel);
+			server.delUser(toDel);
+			sr.save(server);
 			b=true;
 		}	
 		return b;
-	}
-	
-	public Server deleteUserList(Server server)
-	{
-		Set<User> list = server.getUsers();
-		
-		for(User u : list)
-		{
-			u.delServer(server);
-		}
-		
-		return sr.save(server);	
 	}
 }

@@ -54,6 +54,11 @@ public class ServerDirectory {
 		List<Server> l = sr.findAll();
 		return l;
 	}
+	
+	public List<Server> getServersByUserId(Long id) {
+		List<Server> l = sr.findByUsersId(id);
+		return l;
+	}
 
 	// Get server by id
 	public Optional<Server> getServer(Long id) {
@@ -66,7 +71,6 @@ public class ServerDirectory {
 		if(b)
 		{
 			Server server = sr.findById(id).get();
-			server = serverUserDirectory.deleteUserList(server);
 			
 			sr.delete(server);
 		}

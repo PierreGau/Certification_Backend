@@ -40,10 +40,10 @@ public class UserDirectory {
 		
 		if (!user.isPresent() || !user.get().isActif()) return;
 	
-		user.get().setServers(new HashSet<Server>());
 		user.get().setActif(false);
 	
-		userRepository.save(user.get());	}
+		userRepository.save(user.get());
+		}
 
 	// Put User by id
 	public void putUser(User userToUpdate, Long id) {

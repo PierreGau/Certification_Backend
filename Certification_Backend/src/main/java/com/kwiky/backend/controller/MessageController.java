@@ -48,14 +48,12 @@ public class MessageController
 	@PostMapping("messages")
 	public ResponseEntity<Message> postMessage(@RequestBody Message message)
 	{
-	
 		if(message.getUser()==null)
 			return ResponseEntity.badRequest().build();
 		else
 		{
 			return ResponseEntity.ok(messageDirectory.add(message));
-		}
-		
+		}	
 	}
 	
 	@DeleteMapping("messages/{id}")

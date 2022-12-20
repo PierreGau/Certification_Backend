@@ -4,7 +4,6 @@ package com.kwiky.backend.dto;
 public class UserDTO {
 	private Long id;
 	private String name;
-
 	private boolean actif;
 
 	public Long getId() {

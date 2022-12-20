@@ -1,6 +1,5 @@
 package com.kwiky.backend.model;
 
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -28,41 +27,17 @@ public class User {
 	@Column(name = "actif")
 	private boolean actif;
 	
-	@ManyToMany
-	 @JoinTable(name = "server_user",
-     joinColumns = @JoinColumn(name = "user_id"),
-     inverseJoinColumns = @JoinColumn(name = "server_id"))
-	  private Set<Server> servers;
-	
 	// Constructeurs
 	public User() {
 		
 	}
 	
-	public void addServer(Server server)
-	{
-		servers.add(server);
-	}
-	
-	public void delServer(Server server)
-	{
-		servers.remove(server);
-	}
-
 	public User(Long id, String name) {
 		this.id = id;
 		this.name = name;
 		this.setActif(true);
 	}
 
-
-	public Set<Server> getServers() {
-		return servers;
-	}
-
-	public void setServers(Set<Server> servers) {
-		this.servers = servers;
-	}
 
 	// Getters & Setters
 	public Long getId() {

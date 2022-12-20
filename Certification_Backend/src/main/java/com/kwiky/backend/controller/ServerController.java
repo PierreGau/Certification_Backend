@@ -44,8 +44,15 @@ public class ServerController
 		else
 			return ResponseEntity.notFound().build();
 	}
-
 	
+	@GetMapping("servers/user/{id}")
+	public ResponseEntity<List<ServerDTO>> getServerByUserId(@PathVariable("id") Long id)
+	{
+		List<Server> l = sd.getServersByUserId(id);
+		
+		return ResponseEntity.ok(serverToDto.mapToDTOs(l));	
+	}
+
 	@PostMapping("servers")
 	public ResponseEntity<Server> postServer(@RequestBody Server server)
 	{

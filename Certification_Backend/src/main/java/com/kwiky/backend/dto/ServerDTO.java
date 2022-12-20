@@ -44,7 +44,6 @@ public class ServerDTO
 		this.canaux = canaux;
 	}
 	public ServerDTO() {
-		super();
 	}
 	@Override
 	public String toString() {
