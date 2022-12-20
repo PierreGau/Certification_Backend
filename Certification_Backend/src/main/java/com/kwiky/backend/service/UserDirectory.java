@@ -1,5 +1,6 @@
 package com.kwiky.backend.service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kwiky.backend.dao.UserRepository;
+import com.kwiky.backend.model.Server;
 import com.kwiky.backend.model.User;
 
 @Service
@@ -36,9 +38,9 @@ public class UserDirectory {
 	public void deleteUser(Long id) {
 		Optional<User> user = userRepository.findById(id);
 		
-		if (!user.isPresent() || !user.get().isActif()) return  ;
+		if (!user.isPresent() || !user.get().isActif()) return;
 	
-	
+		user.get().setServers(new HashSet<Server>());
 		user.get().setActif(false);
 	
 		userRepository.save(user.get());	}

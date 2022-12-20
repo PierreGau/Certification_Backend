@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.kwiky.backend.dto.ServerDTO;
+import com.kwiky.backend.mappers.serverToDto;
 import com.kwiky.backend.model.Canal;
 import com.kwiky.backend.model.Server;
 import com.kwiky.backend.service.ServerDirectory;
@@ -26,18 +28,19 @@ public class ServerController
 	private ServerDirectory sd;
 	
 	@GetMapping("servers")
-	public List<Server> getAllServers()
+	public ResponseEntity<List<ServerDTO>> getAllServers()
 	{
-		return sd.getServers();
+		List<Server> l = sd.getServers();
+		return ResponseEntity.ok(serverToDto.mapToDTOs(l));	
 	}
 	
 	@GetMapping("servers/{id}")
-	public ResponseEntity<Server> getServer(@PathVariable("id") Long id)
+	public ResponseEntity<ServerDTO> getServer(@PathVariable("id") Long id)
 	{
 		Optional<Server> o = sd.getServer(id);
 		
 		if(o.isPresent())
-			return ResponseEntity.ok(o.get());
+			return ResponseEntity.ok(serverToDto.mapToDTO(o.get()));
 		else
 			return ResponseEntity.notFound().build();
 	}

@@ -1,6 +1,7 @@
 package com.kwiky.backend.service;
 
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,6 +10,7 @@ import com.kwiky.backend.dao.CanalRepository;
 import com.kwiky.backend.dao.ServerRepository;
 import com.kwiky.backend.model.Canal;
 import com.kwiky.backend.model.Server;
+import com.kwiky.backend.model.User;
 
 @Service
 public class ServerCanalDirectory 

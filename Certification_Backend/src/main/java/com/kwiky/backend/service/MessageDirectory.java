@@ -52,7 +52,7 @@ public class MessageDirectory
 	public boolean updateMessage(Message message)
 	{
 		boolean b = mr.existsById(message.getId());
-		if(b && message.getCanal() != null && message.getUser() != null)
+		if(b && message.getUser() != null)
 			mr.save(message);
 		
 		return b;

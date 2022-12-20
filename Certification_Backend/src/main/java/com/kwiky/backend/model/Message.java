@@ -10,8 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.Type;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -39,21 +37,14 @@ public class Message
 	
 	@ManyToOne
 	@NotNull
-	@Cascade(CascadeType.DETACH)
 	private User user;
 	
-	@ManyToOne
-	@NotNull
-	@Cascade(CascadeType.DETACH)
-	private Canal canal;
-
 	public Message(@NotNull String content, @NotNull LocalDateTime postTime, LocalDateTime editTime, @NotNull User user,
 			@NotNull Canal canal) {
 		this.content = content;
 		this.postTime = postTime;
 		this.editTime = editTime;
 		this.user = user;
-		this.canal = canal;
 	}
 
 	public Message() {
@@ -61,8 +52,8 @@ public class Message
 
 	@Override
 	public String toString() {
-		return String.format("Message [id=%s, content=%s, postTime=%s, editTime=%s, user=%s, canal=%s]", id, content,
-				postTime, editTime, user, canal);
+		return String.format("Message [id=%s, content=%s, postTime=%s, editTime=%s, user=%s]", id, content,
+				postTime, editTime, user);
 	}
 
 	public Long getId() {
@@ -105,11 +96,4 @@ public class Message
 		this.user = user;
 	}
 
-	public Canal getCanal() {
-		return canal;
-	}
-
-	public void setCanal(Canal canal) {
-		this.canal = canal;
-	}
 }

@@ -1,14 +1,15 @@
 package com.kwiky.backend.model;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -28,22 +29,20 @@ public class Server {
 	@NotNull
 	@Column(name="name")
 	private String name;
-	
-	@ManyToMany()
-	@JoinColumn(name="server_users", nullable = true,updatable = true)
-	private List<User> users;
+		
+	@ManyToMany(mappedBy = "servers")
+	private Set<User> users;
 	
 	@ManyToOne
-	@Cascade(CascadeType.DETACH)
 	private User creator;
 	
 	@OneToMany
 	@Cascade(CascadeType.ALL)
-	private List<Canal> canaux;
+	private Set<Canal> canaux;
 
 	public Server() {
-		this.canaux = new ArrayList<>();
-		this.users = new ArrayList<>();
+		this.canaux = new HashSet<>();
+		this.users = new HashSet<>();
 		Canal general = new Canal("General", creator);
 		general.setGeneral(true);
 		this.canaux.add(general);
@@ -53,7 +52,7 @@ public class Server {
 		this.id = id;
 		this.name = name;
 		this.creator = creator;
-		this.canaux = new ArrayList<>();
+		this.canaux = new HashSet<>();
 		Canal general = new Canal("General", creator);
 		general.setGeneral(true);
 		this.canaux.add(general);
@@ -71,52 +70,37 @@ public class Server {
 		return name;
 	}
 
-
-
 	public void setName(String name) {
 		this.name = name;
 	}
 
-
-
-	public List<User> getUsers() {
+	public Set<User> getUsers() {
 		return users;
 	}
 
-
-
-	public void setUsers(List<User> users) {
+	public void setUsers(Set<User> users) {
 		this.users = users;
 	}
-
-
 
 	public User getCreator() {
 		return creator;
 	}
 
-
-
 	public void setCreator(User creator) {
 		this.creator = creator;
 	}
 
-
-
-	public List<Canal> getCanaux() {
+	public Set<Canal> getCanaux() {
 		return canaux;
 	}
 
-
-
-	public void setCanaux(List<Canal> canaux) {
+	public void setCanaux(Set<Canal> canaux) {
 		this.canaux = canaux;
 	}
 
-	
 	public void createGeneral()
 	{
-		ArrayList<Canal> l = new ArrayList<>();
+		Set<Canal> l = new HashSet<>();
 		Canal c = new Canal("General", this.getCreator());
 		c.setGeneral(true);
 		l.add(c);
@@ -176,10 +160,11 @@ public class Server {
 		return this;
 	}
 
-
 	@Override
 	public String toString() {
-		return String.format("Server [id=%s, name=%s, creator=%s, nombre de canaux=%s]", id, name, creator.getName(),
-				canaux.size());
+		return "Server [id=" + id + ", name=" + name + ", users=" + users + ", creator=" + creator + ", canaux="
+				+ canaux + "]";
 	}
+
+
 }

@@ -1,6 +1,7 @@
 package com.kwiky.backend.service;
 
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,11 +23,12 @@ public class ServerUserDirectory {
 	{
 		boolean b = false;
 		Optional<Server> s = sr.findById(_serverId);
-		if(s.isPresent())
+		Optional<User> userToAdd = ur.findById(user.getId());
+		if(s.isPresent() && userToAdd.isPresent())
 		{
-			Server server = s.get();
-			server.addUser(user);
-			sr.save(server);
+			User u = userToAdd.get();
+			u.addServer(s.get());
+			ur.save(u);
 			b=true;
 		}	
 		return b;
@@ -41,10 +43,22 @@ public class ServerUserDirectory {
 		{
 			User toDel = u.get();
 			Server server = s.get();
-			server.delUser(toDel);
-			sr.save(server);
+			toDel.delServer(server);
+			ur.save(toDel);
 			b=true;
 		}	
 		return b;
+	}
+	
+	public Server deleteUserList(Server server)
+	{
+		Set<User> list = server.getUsers();
+		
+		for(User u : list)
+		{
+			u.delServer(server);
+		}
+		
+		return sr.save(server);	
 	}
 }

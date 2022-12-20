@@ -49,7 +49,7 @@ public class MessageController
 	public ResponseEntity<Message> postMessage(@RequestBody Message message)
 	{
 	
-		if(message.getUser()==null || message.getCanal()==null)
+		if(message.getUser()==null)
 			return ResponseEntity.badRequest().build();
 		else
 		{
