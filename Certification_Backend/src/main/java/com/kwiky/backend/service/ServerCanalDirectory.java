@@ -16,30 +16,30 @@ import com.kwiky.backend.model.User;
 public class ServerCanalDirectory 
 {
 	@Autowired
-	private CanalRepository cr;
+	private CanalRepository canalRepository;
 	
 	@Autowired
-	private ServerRepository sr;
+	private ServerRepository serverRepository;
 	
-	public boolean serverAddCanal(long _serverId, Canal canal)
+	public boolean serverAddCanal(long serverId, Canal canal)
 	{
 		boolean b = false;
-		Optional<Server> s = sr.findById(_serverId);
+		Optional<Server> s = serverRepository.findById(serverId);
 		if(s.isPresent())
 		{
 			Server server = s.get();
 			server.addCanal(canal);
-			sr.save(server);
+			serverRepository.save(server);
 			b=true;
 		}	
 		return b;
 	}
 	
-	public boolean serverDelCanal(long _serverId, Canal canal)
+	public boolean serverDelCanal(long serverId, Canal canal)
 	{
 		boolean b = false;
-		Optional<Server> s = sr.findById(_serverId);
-		Optional<Canal> c = cr.findById(canal.getId());
+		Optional<Server> s = serverRepository.findById(serverId);
+		Optional<Canal> c = canalRepository.findById(canal.getId());
 		if(s.isPresent() && c.isPresent())
 		{
 			Canal toDel = c.get();
@@ -47,8 +47,8 @@ public class ServerCanalDirectory
 			if(!toDel.getGeneral())
 			{
 				server.delCanal(toDel);
-				sr.save(server);
-				cr.delete(toDel);
+				serverRepository.save(server);
+				canalRepository.delete(toDel);
 				b=true;
 			}
 		}	

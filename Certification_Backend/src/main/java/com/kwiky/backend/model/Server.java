@@ -18,19 +18,27 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
 @Entity
-@Table(name="server")
+@Table(name = "server")
 public class Server {
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-	
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+
 	@NotNull
-	@Column(name="name")
+	@Column(name = "name")
 	private String name;
+<<<<<<< HEAD
 		
 	@ManyToMany
 	private Set<User> users;
 	
+=======
+
+	@ManyToMany()
+	@JoinColumn(name = "server_users", nullable = true, updatable = true)
+	private List<User> users;
+
+>>>>>>> 94de4388fc71adb4f7910d736e7b4c1e422552ef
 	@ManyToOne
 	private User creator;
 
@@ -72,11 +80,19 @@ public class Server {
 		this.name = name;
 	}
 
+<<<<<<< HEAD
 	public Set<User> getUsers() {
 		return users;
 	}
 
 	public void setUsers(Set<User> users) {
+=======
+	public List<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<User> users) {
+>>>>>>> 94de4388fc71adb4f7910d736e7b4c1e422552ef
 		this.users = users;
 	}
 
@@ -88,6 +104,7 @@ public class Server {
 		this.creator = creator;
 	}
 
+<<<<<<< HEAD
 	public Set<Canal> getCanaux() {
 		return canaux;
 	}
@@ -99,61 +116,67 @@ public class Server {
 	public void createGeneral()
 	{
 		Set<Canal> l = new HashSet<>();
+=======
+	public List<Canal> getCanaux() {
+		return canaux;
+	}
+
+	public void setCanaux(List<Canal> canaux) {
+		this.canaux = canaux;
+	}
+
+	
+	
+	
+	public void createGeneral() {
+		ArrayList<Canal> l = new ArrayList<>();
+>>>>>>> 94de4388fc71adb4f7910d736e7b4c1e422552ef
 		Canal c = new Canal("General", this.getCreator());
 		c.setGeneral(true);
 		l.add(c);
 		this.setCanaux(l);
 	}
-	
-	public Server addCanal(Canal canal)
-	{
+
+	public Server addCanal(Canal canal) {
 		boolean canAdd = false;
 		if (canal.getUser().getId() == creator.getId())
-			canAdd=true;
-		else
-		{
-			for(User u : users)
-			{
-				if(u.getId() == canal.getUser().getId())
-				{
+			canAdd = true;
+		else {
+			for (User u : users) {
+				if (u.getId() == canal.getUser().getId()) {
 					canAdd = true;
 					break;
 				}
 			}
 		}
-		
-		if(canAdd)
+
+		if (canAdd)
 			canaux.add(canal);
-		
+
 		return this;
 	}
-	
-	public Server delCanal(Canal canal)
-	{
+
+	public Server delCanal(Canal canal) {
 		canaux.remove(canal);
 		return this;
 	}
-	
-	public Server addUser(User user)
-	{
+
+	public Server addUser(User user) {
 		boolean canAdd = true;
-		
-		for(User u : users)
-		{
-			if(u.getId() == user.getId() || user.getId() == creator.getId())
-			{
+
+		for (User u : users) {
+			if (u.getId() == user.getId() || user.getId() == creator.getId()) {
 				canAdd = false;
 				break;
 			}
 		}
-		if(canAdd)
+		if (canAdd)
 			users.add(user);
 		return this;
 	}
-	
-	public Server delUser(User user)
-	{
-		if(users.contains(user))
+
+	public Server delUser(User user) {
+		if (users.contains(user))
 			users.remove(user);
 		return this;
 	}

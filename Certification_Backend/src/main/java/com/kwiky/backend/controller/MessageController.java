@@ -35,12 +35,12 @@ public class MessageController
 	}
 	
 	@GetMapping("messages/{id}")
-	public ResponseEntity<Message> getMessage(@PathVariable("id")Long _id)
+	public ResponseEntity<Message> getMessage(@PathVariable("id")Long id)
 	{		
-		Optional<Message> o = messageDirectory.getMessage(_id);
+		Optional<Message> message = messageDirectory.getMessage(id);
 		
-		if(o.isPresent())		
-			return ResponseEntity.ok(o.get());			
+		if(message.isPresent())		
+			return ResponseEntity.ok(message.get());			
 		else
 			return ResponseEntity.notFound().build();
 	}
@@ -57,9 +57,9 @@ public class MessageController
 	}
 	
 	@DeleteMapping("messages/{id}")
-	public ResponseEntity<Message> DeleteMessage(@PathVariable("id")Long _id)
+	public ResponseEntity<Message> DeleteMessage(@PathVariable("id")Long id)
 	{	
-		boolean success = messageDirectory.deleteMessage(_id);
+		boolean success = messageDirectory.deleteMessage(id);
 		
 		if(success)
 			return ResponseEntity.ok().build();
