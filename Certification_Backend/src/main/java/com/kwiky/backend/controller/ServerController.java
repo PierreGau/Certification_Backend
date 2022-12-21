@@ -28,22 +28,16 @@ public class ServerController {
 	private ServerDirectory serverDirectory;
 
 	@GetMapping("servers")
-<<<<<<< HEAD
 	public ResponseEntity<List<ServerDTO>> getAllServers()
 	{
-		List<Server> l = sd.getServers();
-		return ResponseEntity.ok(serverToDto.mapToDTOs(l));	
-=======
-	public List<Server> getAllServers() {
-		return serverDirectory.getServers();
->>>>>>> 94de4388fc71adb4f7910d736e7b4c1e422552ef
+		List<Server> l = serverDirectory.getServers();
+		return ResponseEntity.ok(serverToDto.mapToDTOs(l));
 	}
 
 	@GetMapping("servers/{id}")
-<<<<<<< HEAD
 	public ResponseEntity<ServerDTO> getServer(@PathVariable("id") Long id)
 	{
-		Optional<Server> o = sd.getServer(id);
+		Optional<Server> o = serverDirectory.getServer(id);
 		
 		if(o.isPresent())
 			return ResponseEntity.ok(serverToDto.mapToDTO(o.get()));
@@ -54,29 +48,15 @@ public class ServerController {
 	@GetMapping("servers/user/{id}")
 	public ResponseEntity<List<ServerDTO>> getServerByUserId(@PathVariable("id") Long id)
 	{
-		List<Server> l = sd.getServersByUserId(id);
+		List<Server> l = serverDirectory.getServersByUserId(id);
 		
 		return ResponseEntity.ok(serverToDto.mapToDTOs(l));	
 	}
-=======
-	public ResponseEntity<Server> getServer(@PathVariable("id") Long id) {
-		Optional<Server> server = serverDirectory.getServer(id);
 
-		if (server.isPresent())
-			return ResponseEntity.ok(server.get());
-		else
-			return ResponseEntity.notFound().build();
-	}
->>>>>>> 94de4388fc71adb4f7910d736e7b4c1e422552ef
 
 	@PostMapping("servers")
 	public ResponseEntity<Server> postServer(@RequestBody Server server) {
 		return ResponseEntity.ok(serverDirectory.addServer(server));
-	}
-
-	@PostMapping("servers/list")
-	public ResponseEntity<List<Server>> postServer(@RequestBody List<Server> servers) {
-		return ResponseEntity.ok(serverDirectory.addAll(servers));
 	}
 
 	@DeleteMapping("servers/suprcanal/{id}")

@@ -27,18 +27,10 @@ public class Server {
 	@NotNull
 	@Column(name = "name")
 	private String name;
-<<<<<<< HEAD
 		
 	@ManyToMany
 	private Set<User> users;
-	
-=======
 
-	@ManyToMany()
-	@JoinColumn(name = "server_users", nullable = true, updatable = true)
-	private List<User> users;
-
->>>>>>> 94de4388fc71adb4f7910d736e7b4c1e422552ef
 	@ManyToOne
 	private User creator;
 
@@ -80,21 +72,15 @@ public class Server {
 		this.name = name;
 	}
 
-<<<<<<< HEAD
 	public Set<User> getUsers() {
 		return users;
 	}
 
 	public void setUsers(Set<User> users) {
-=======
-	public List<User> getUsers() {
-		return users;
+		this.users =  users;
 	}
 
-	public void setUsers(List<User> users) {
->>>>>>> 94de4388fc71adb4f7910d736e7b4c1e422552ef
-		this.users = users;
-	}
+
 
 	public User getCreator() {
 		return creator;
@@ -104,7 +90,6 @@ public class Server {
 		this.creator = creator;
 	}
 
-<<<<<<< HEAD
 	public Set<Canal> getCanaux() {
 		return canaux;
 	}
@@ -116,21 +101,6 @@ public class Server {
 	public void createGeneral()
 	{
 		Set<Canal> l = new HashSet<>();
-=======
-	public List<Canal> getCanaux() {
-		return canaux;
-	}
-
-	public void setCanaux(List<Canal> canaux) {
-		this.canaux = canaux;
-	}
-
-	
-	
-	
-	public void createGeneral() {
-		ArrayList<Canal> l = new ArrayList<>();
->>>>>>> 94de4388fc71adb4f7910d736e7b4c1e422552ef
 		Canal c = new Canal("General", this.getCreator());
 		c.setGeneral(true);
 		l.add(c);

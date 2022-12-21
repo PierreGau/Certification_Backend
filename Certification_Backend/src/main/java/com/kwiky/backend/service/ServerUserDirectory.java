@@ -22,21 +22,12 @@ public class ServerUserDirectory {
 	public boolean serverAddUser(long _serverId, User user)
 	{
 		boolean b = false;
-<<<<<<< HEAD
-		Optional<Server> s = sr.findById(_serverId);
-		Optional<User> userToAdd = ur.findById(user.getId());
+		Optional<Server> s = serverRepository.findById(_serverId);
+		Optional<User> userToAdd = userRepository.findById(user.getId());
 		if(s.isPresent() && userToAdd.isPresent())
 		{
 			s.get().addUser(userToAdd.get());
-			sr.save(s.get());
-=======
-		Optional<Server> s = serverRepository.findById(_serverId);
-		if(s.isPresent())
-		{
-			Server server = s.get();
-			server.addUser(user);
-			serverRepository.save(server);
->>>>>>> 94de4388fc71adb4f7910d736e7b4c1e422552ef
+			serverRepository.save(s.get());
 			b=true;
 		}	
 		return b;
