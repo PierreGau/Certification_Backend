@@ -41,6 +41,7 @@ public class Server {
 	@Cascade(CascadeType.ALL)
 	private List<Canal> canaux;
 
+	// Constructeurs
 	public Server() {
 		this.canaux = new ArrayList<>();
 		this.users = new ArrayList<>();
@@ -59,6 +60,7 @@ public class Server {
 		this.canaux.add(general);
 	}
 
+	// Getters & Setters
 	public Long getId() {
 		return id;
 	}
@@ -101,7 +103,9 @@ public class Server {
 
 	
 	
+	// Méthodes
 	
+	// Création du canal Général
 	public void createGeneral() {
 		ArrayList<Canal> l = new ArrayList<>();
 		Canal c = new Canal("General", this.getCreator());
@@ -110,6 +114,7 @@ public class Server {
 		this.setCanaux(l);
 	}
 
+	// Ajout d'un canal au serveur
 	public Server addCanal(Canal canal) {
 		boolean canAdd = false;
 		if (canal.getUser().getId() == creator.getId())
@@ -129,11 +134,13 @@ public class Server {
 		return this;
 	}
 
+	// Suppression d'un canal du serveur
 	public Server delCanal(Canal canal) {
 		canaux.remove(canal);
 		return this;
 	}
 
+	// Ajout d'un utilisateur au serveur
 	public Server addUser(User user) {
 		boolean canAdd = true;
 
@@ -148,12 +155,14 @@ public class Server {
 		return this;
 	}
 
+	// Suppression d'un utilisateur au serveur
 	public Server delUser(User user) {
 		if (users.contains(user))
 			users.remove(user);
 		return this;
 	}
 
+	// ToString
 	@Override
 	public String toString() {
 		return String.format("Server [id=%s, name=%s, creator=%s, nombre de canaux=%s]", id, name, creator.getName(),

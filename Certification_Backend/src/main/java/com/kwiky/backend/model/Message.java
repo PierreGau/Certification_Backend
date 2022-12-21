@@ -46,6 +46,7 @@ public class Message {
 	@Cascade(CascadeType.DETACH)
 	private Canal canal;
 
+	// Constructeurs
 	public Message() {
 	}
 
@@ -58,6 +59,7 @@ public class Message {
 		this.canal = canal;
 	}
 
+	// Getters & Setters
 	public Long getId() {
 		return id;
 	}
@@ -106,6 +108,7 @@ public class Message {
 		this.canal = canal;
 	}
 
+	// ToString
 	@Override
 	public String toString() {
 		return String.format("Message [id=%s, content=%s, postTime=%s, editTime=%s, user=%s, canal=%s]", id, content,

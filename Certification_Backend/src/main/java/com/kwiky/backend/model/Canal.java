@@ -25,18 +25,18 @@ public class Canal {
 	@Column(name="general", columnDefinition="tinyint(1) default 1")
 	private Boolean general = false;
 	
-	// Constructeur par defaut
+	// Constructeurs
 	public Canal() {
 		
 	}
 
-	// constructeur avec tous les attributs
 	public Canal( String name, User user) {
 		this.name = name;
 		this.user = user;
 		this.general = false;
 	}
 
+	// Getters & Setters
 	public Boolean getGeneral() {
 		return general;
 	}
@@ -45,7 +45,6 @@ public class Canal {
 		this.general = general;
 	}
 
-	// Getters & Setters
 	public Long getId() {
 		return id;
 	}

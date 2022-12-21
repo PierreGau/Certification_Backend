@@ -15,23 +15,25 @@ public class UserDirectory {
 	@Autowired
 	private UserRepository userRepository;
 
-	// post User
+	// Méthodes
+	
+	// Ajout d'un utilisateur 
 	public void addUser(User newUser) {
 		newUser.setActif(true);
 		userRepository.save(newUser);
 	}
 
-	// Get All User
+	// Afficher tous les utilisateurs
 	public List<User> getUsers() {
 		return userRepository.findAll();
 	}
 
-	// Get User by id
+	// Afficher un utilisateur selon son id
 	public Optional<User> getUser(Long id) {
 		return userRepository.findById(id);
 	}
 
-	// delete User by id
+	// "suppression" un utilisateur en utilisant son id
 	public void deleteUser(Long id) {
 	
 		Optional<User> user = userRepository.findById(id);
@@ -42,14 +44,14 @@ public class UserDirectory {
 			return;
 		}
 		
-		// le user devient inactif (il est toujours présent dans la BDD
+		// le user devient inactif (il est toujours présent dans la BDD)
 		user.get().setActif(false);
 
 		// Sauvegarde de l'objet user en tant que user inactif
 		userRepository.save(user.get());
 	}
 
-	// Put User by id
+	// Modifier un utilisateur
 	public void putUser(User newUser, Long id) {
 		userRepository.save(newUser);
 	}

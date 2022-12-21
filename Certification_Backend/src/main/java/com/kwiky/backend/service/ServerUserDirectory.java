@@ -18,10 +18,10 @@ public class ServerUserDirectory {
 	@Autowired
 	UserRepository userRepository;
 
-	public boolean serverAddUser(long _serverId, User user)
+	public boolean serverAddUser(long serverId, User user)
 	{
 		boolean b = false;
-		Optional<Server> s = serverRepository.findById(_serverId);
+		Optional<Server> s = serverRepository.findById(serverId);
 		if(s.isPresent())
 		{
 			Server server = s.get();
@@ -32,10 +32,10 @@ public class ServerUserDirectory {
 		return b;
 	}
 	
-	public boolean serverDelUser(long _serverId, User user)
+	public boolean serverDelUser(long serverId, User user)
 	{
 		boolean b = false;
-		Optional<Server> s = serverRepository.findById(_serverId);
+		Optional<Server> s = serverRepository.findById(serverId);
 		Optional<User> u = userRepository.findById(user.getId());
 		if(s.isPresent() && u.isPresent())
 		{
