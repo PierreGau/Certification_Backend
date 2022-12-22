@@ -1,18 +1,13 @@
 package com.kwiky.backend.service;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kwiky.backend.dao.ServerRepository;
 import com.kwiky.backend.model.Canal;
-import com.kwiky.backend.model.Message;
 import com.kwiky.backend.model.Server;
 
 @Service
@@ -45,43 +40,17 @@ public class ServerDirectory {
 	}
 	
 	public List<Server> getServersByUserId(Long id) {
-		List<Server> liste = serverRepository.findByUsersId(id);
-		for(Server s : liste)
-		{
-			List<Canal> sorter = new ArrayList<>(s.getCanaux());
-			sorter.sort(Comparator.comparing(Canal::getId));
-			Set<Canal> sortedCanaux = new LinkedHashSet<>(sorter);
-			s.setCanaux(sortedCanaux);	
-		}
-		
-		return liste;
+		List<Server> l = serverRepository.findByUsersId(id);
+		return l;
 	}
-	// Get All servers
+	// Get All Canal
 	public List<Server> getServers() {
-		List<Server> liste =  serverRepository.findAll();
-		
-		for(Server s : liste)
-		{
-			List<Canal> sorter = new ArrayList<>(s.getCanaux());
-			sorter.sort(Comparator.comparing(Canal::getId));
-			Set<Canal> sortedCanaux = new LinkedHashSet<>(sorter);
-			s.setCanaux(sortedCanaux);	
-		}
-		return liste;
+		return serverRepository.findAll();
 	}
 
 	// Get server by id
 	public Optional<Server> getServer(Long id) {
-		
-		Optional<Server> s = serverRepository.findById(id);
-		if(s.isPresent()) {
-			List<Canal> sorter = new ArrayList<>(s.get().getCanaux());
-			sorter.sort(Comparator.comparing(Canal::getId));
-			Set<Canal> sortedCanaux = new LinkedHashSet<>(sorter);
-			s.get().setCanaux(sortedCanaux);	
-		}
-		
-		return s;
+		return serverRepository.findById(id);
 	}
 
 	// delete server by id
