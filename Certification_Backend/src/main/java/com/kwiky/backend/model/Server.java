@@ -1,6 +1,7 @@
 package com.kwiky.backend.model;
 
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -39,8 +40,8 @@ public class Server {
 	private Set<Canal> canaux;
 
 	public Server() {
-		this.canaux = new HashSet<>();
-		this.users = new HashSet<>();
+		this.canaux = new LinkedHashSet<>();
+		this.users = new LinkedHashSet<>();
 		Canal general = new Canal("General", creator);
 		general.setGeneral(true);
 		this.canaux.add(general);
@@ -50,7 +51,7 @@ public class Server {
 		this.id = id;
 		this.name = name;
 		this.creator = creator;
-		this.canaux = new HashSet<>();
+		this.canaux = new LinkedHashSet<>();
 		Canal general = new Canal("General", creator);
 		general.setGeneral(true);
 		this.canaux.add(general);
@@ -100,7 +101,7 @@ public class Server {
 
 	public void createGeneral()
 	{
-		Set<Canal> l = new HashSet<>();
+		Set<Canal> l = new LinkedHashSet<>();
 		Canal c = new Canal("General", this.getCreator());
 		c.setGeneral(true);
 		l.add(c);
